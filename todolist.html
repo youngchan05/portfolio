@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./css/reset.css">
+    <link rel="stylesheet" href="./css/style.css">
+    <title>TODO</title>
+</head>
+<body>
+    <div class="todo-wrap">
+        <div class="todo-header">
+            <h1 class="title">TODO</h1>
+        </div>
+        <ul class="todo-list">
+        </ul>
+        <div class="todo-add">
+            <div class="text-wrap">
+                <strong>ADD THE PLAN</strong>
+                <p>we only plan today, and must be completed today :)</p>
+            </div>
+            <div class="add-util">
+                <input type="text" class="input" placeholder="Write a todo . . .">
+                <button type="button" class='btn'>Save</button>
+            </div>
+            <button type="button" class="toggle"></button>
+        </div>
+    </div>
+    <!-- <button type="button" class="sort">sort</button> -->
+    <script>
+        const handleToggle = (e) =>{
+            const _this = e.target;
+            _this.parentNode.classList.toggle('active');
+        }
+        const toggle = document.querySelector('.toggle').addEventListener('click',handleToggle)
+        const todoList = () =>{
+            const todoButton =  document.querySelector('.btn'),
+                todoInput = document.querySelector('.input'),
+                todoUl = document.querySelector('.todo-list'),
+                todoItem = 'todos';
+                let todoArr = [];
+            return {
+                init : function(){
+                    this.addBtn();
+                    this.load();
+                    this.delete();
+                    this.enter();
+                },
+                save : function(){
+                    localStorage.setItem(todoItem,JSON.stringify(todoArr));
+                },
+                addBtn : function(){
+                    const _self = this;
+                    const handleClick = function(){
+                        const inputValue = todoInput.value;
+                        _self.create(inputValue);
+                        todoInput.value ="";
+                    }
+                    todoButton.addEventListener('click',handleClick);
+                },
+                date : function(){
+                    const date = new Date();
+                    const monthNames = ["January", "February", "March", "April", "May", "June","July", "August", "September", "October", "November", "December"];
+                    const day = date.getDay();
+                    const years = date.getFullYear();
+                    const month = monthNames[`${date.getMonth()}`];
+                    return {
+                        getDate : function(){
+                            return `${day} ${month} ${years}`
+                        }
+                    }
+                },
+                delete : function(e){
+                    const _self = this;
+                    return {
+                        handleClick : function(){
+                            const parent = this.parentNode;
+                            parent.remove();
+                            const newArr = todoArr.filter( (todos) => {
+                                return parent.className != todos.key;
+                            })
+                            todoArr = newArr;
+                            _self.save();
+                        }
+                    }
+                },
+                create : function(text){
+                    if(text === "") return
+                    const li = document.createElement('li');
+                    const btn = document.createElement('button');
+                    const span = document.createElement('span');
+                    const p = document.createElement('p');
+                    const remove = this.delete();
+                    const date = this.date();
+                    span.innerText = text;
+                    p.innerText = date.getDate();
+                    btn.addEventListener('click',remove.handleClick);
+                    li.className = todoArr.length +1;
+                    li.appendChild(span);
+                    li.appendChild(btn);
+                    li.appendChild(p);
+                    todoUl.appendChild(li);
+                    todoObj = {
+                        text,
+                        key : todoArr.length +1
+                    }
+                    todoArr.push(todoObj);
+                    this.save();
+                },
+                enter :function(e){
+                    const _self = this;
+                    const eneterHendel = function(){
+                        if(event.keyCode == 13){
+                            const inputValue = todoInput.value;
+                            _self.create(inputValue);
+                            todoInput.value ="";
+                        }
+                    }
+                    todoInput.addEventListener('keydown',eneterHendel)
+                },
+                load : function(){
+                    const loadData = localStorage.getItem(todoItem);
+                    if(loadData != null){
+                        const todoData = JSON.parse(loadData);
+                        todoData.forEach(item => {
+                            this.create(item.text);
+                        });
+                    }
+                },
+                
+            }
+            
+        }
+        const todo = todoList();
+        todo.init();
+    </script>
+</body>
+</html>

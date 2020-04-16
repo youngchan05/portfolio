@@ -1,0 +1,174 @@
+//color
+$white :#fff;
+body {
+    background-color:#eee;
+}
+//scroll
+
+.todo-wrap {
+    position:relative;
+    max-width:700px;
+    margin:0 auto;
+    overflow: auto;
+    background-color:#f6f6f6;
+    overflow: hidden;
+    ::-webkit-scrollbar{width: 4px;}
+    ::-webkit-scrollbar-track {background-color:#fff;}
+    ::-webkit-scrollbar-thumb {background-color:#1889e8;}
+    ::-webkit-scrollbar-thumb:hover {background: #555;}
+    .todo-header {
+        background-color:$white;
+        .title {
+            position:relative;
+            padding:24px 0;
+            font-size:48px;
+            color:#333;
+            text-align: center;
+            letter-spacing: 2px;
+            font-weight: 700;
+            &::after {
+                display:block;
+                position:absolute;
+                left:0;
+                bottom:0;
+                width:100%;
+                box-shadow: 1px 1px 4px 2px #efefef;
+                content:"";
+            }
+        }
+    }
+    .todo-list {
+        height:800px;
+        overflow: auto;
+        padding:30px 36px;
+        li {
+            position: relative;
+            padding:36px 100px 36px 30px;
+            border-radius: 14px;;
+            background-color: $white;
+            box-shadow: 3px 2px 0px 2px #f0f0f0;
+            button {
+                position: absolute;
+                right:30px;
+                top:50%;
+                width:25px;
+                height:31px;
+                transform: translateY(-50%);
+                background:url(../btn_delete.png) no-repeat center;
+            }
+            + li {
+                margin-top:20px;
+            }
+            span {
+                display:block;
+                width:100%;
+                margin-bottom:4px;
+                font-size:30px;
+                color:#333;
+                font-weight: 700;
+            }
+            p {
+                font-size:22px;
+                color:#666;
+            }
+        }
+    }
+    .todo-add {
+        position: absolute;
+        left: calc(100% - 82px);
+        top: calc(100% - 82px);
+        width:100%;
+        padding:40px;
+        background-color:#18bee8;
+        border-radius:60px 0 0 ;
+        transition:all cubic-bezier(0.445, 0.05, 0.55, 0.95);
+        .text-wrap {
+            opacity: 0;
+        }
+        strong {
+            font-size:26px;
+            line-height:28px;
+            color:$white;
+            letter-spacing: 1px;
+            font-weight: 700;
+        }
+        p{
+            margin-top:6px;
+            font-size:22px;
+            color:$white;
+        }
+        &.active {
+            left: 0;
+            top:auto;
+            bottom:0;
+            .text-wrap {
+                opacity: 1;
+            }
+            .toggle  {
+                position:absolute;
+                right: 30px;
+                top: 44px;
+                left:auto;
+                transform: translate(0);
+                transition: all .5s;
+                &:hover {
+                    transform: rotate(45deg);
+                }
+            }
+        }
+        .toggle {
+            position:absolute;
+            width:32px;
+            height:32px;
+            left: 4.5%;
+            top: 15%;
+            &::after,&::before {
+                display:block;
+                position:absolute;
+                left:0;
+                top:50%;
+                width:100%;
+                height:2px;
+                transform: translateY(-50%);
+                background-color:$white;
+                content:"";
+            }
+            &::before{
+                width:2px;
+                height:100%;
+                left:50%;
+                top:0;
+                transform: translateX(-50%);
+            }
+        }
+    }
+    .add-util {
+        position:relative;
+        margin-top:30px;
+        padding-right:140px;
+        input {
+            width:100%;
+            height:60px;
+            padding:0 20px;
+            background-color: $white;
+            border-radius: 20px;
+            text-align: left;
+            font-size:20px;
+            color:#565656;
+            font-weight: 300;
+        }
+        button {
+            position:absolute;
+            right:0;
+            top:0;
+            width:130px;
+            padding:16px 0;
+            color:$white;
+            font-size:26px;
+            line-height:28px;
+            font-weight: 700;
+            background-color:#1889e8;
+            border-radius: 20px;
+        }
+    }
+}
