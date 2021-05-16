@@ -44,7 +44,7 @@ body { background-color: #eee; }
 
 .todo-wrap .todo-add.active .toggle:hover { -webkit-transform: rotate(45deg); transform: rotate(45deg); }
 
-.todo-wrap .todo-add .toggle { position: absolute; width: 32px; height: 32px; left: 5%; top: 15%; }
+.todo-wrap .todo-add .toggle { position: absolute; width: 32px; height: 32px; left: 4.5%; top: 15%; }
 
 .todo-wrap .todo-add .toggle::after, .todo-wrap .todo-add .toggle::before { display: block; position: absolute; left: 0; top: 50%; width: 100%; height: 2px; -webkit-transform: translateY(-50%); transform: translateY(-50%); background-color: #fff; content: ""; }
 
